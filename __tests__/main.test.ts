@@ -58,8 +58,9 @@ describe("installer tests", () => {
   describe("Gets the latest release of Task", () => {
     beforeEach(() => {
       nock("https://api.github.com")
-        .get("/repos/go-task/task/git/refs/tags")
-        .replyWithFile(200, path.join(dataDir, "tags.json"));
+        .get("/repos/go-task/task/releases")
+        .query({ per_page: 100 })
+        .replyWithFile(200, path.join(dataDir, "releases.json"));
     });
 
     afterEach(() => {
@@ -91,9 +92,10 @@ describe("installer tests", () => {
       }
     });
 
-    it("Skips version computing when a valid semver is provided", async () => {
-      await installer.getTask("3.37.0", "");
-      const taskdir = path.join(toolDir, "task", "3.37.0", os.arch());
+    it("Uses exact version when release has assets", async () => {
+      // 3.37.2 exists in releases.json with assets
+      await installer.getTask("3.37.2", "");
+      const taskdir = path.join(toolDir, "task", "3.37.2", os.arch());
 
       expect(fs.existsSync(`${taskdir}.complete`)).toBe(true);
       if (IS_WINDOWS) {
@@ -101,6 +103,13 @@ describe("installer tests", () => {
       } else {
         expect(fs.existsSync(path.join(taskdir, "bin", "task"))).toBe(true);
       }
+    });
+
+    it("Fails with clear error when exact version has no assets", async () => {
+      // 3.99.0 doesn't exist in releases.json
+      await expect(installer.getTask("3.99.0", "")).rejects.toThrow(
+        "version 3.99.0 is not available",
+      );
     });
   });
 });

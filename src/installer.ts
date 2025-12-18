@@ -24,11 +24,13 @@ import io = require("@actions/io");
 const osPlat: string = os.platform();
 const osArch: string = os.arch();
 
-interface ITaskRef {
-  ref: string;
+interface ITaskRelease {
+  tag_name: string;
+  assets: unknown[];
 }
 
-// Retrieve a list of versions scraping tags from the Github API
+// Retrieve a list of versions from the Github Releases API.
+// Only returns versions that have release assets available for download.
 async function fetchVersions(repoToken: string): Promise<string[]> {
   let rest: restm.RestClient;
   if (repoToken !== "") {
@@ -39,16 +41,17 @@ async function fetchVersions(repoToken: string): Promise<string[]> {
     rest = new restm.RestClient("setup-task");
   }
 
-  const tags: ITaskRef[] =
+  const releases: ITaskRelease[] =
     (
-      await rest.get<ITaskRef[]>(
-        "https://api.github.com/repos/go-task/task/git/refs/tags",
+      await rest.get<ITaskRelease[]>(
+        "https://api.github.com/repos/go-task/task/releases?per_page=100",
       )
     ).result || [];
 
-  return tags
-    .filter((tag) => tag.ref.match(/v\d+\.[\w\.]+/g))
-    .map((tag) => tag.ref.replace("refs/tags/v", ""));
+  return releases
+    .filter((release) => release.assets.length > 0) // Only releases with uploaded assets
+    .filter((release) => release.tag_name.match(/^v\d+\.[\w\.]+/))
+    .map((release) => release.tag_name.replace(/^v/, ""));
 }
 
 // Make partial versions semver compliant.
@@ -94,10 +97,18 @@ async function computeVersion(
   version: string,
   repoToken: string,
 ): Promise<string> {
-  // return if passed version is a valid semver
+  // Fetch all available versions (only those with assets)
+  const allVersions = await fetchVersions(repoToken);
+
+  // If a valid semver is provided, check if it exists in available versions
   if (semver.valid(version)) {
-    core.debug("valid semver provided, skipping computing actual version");
-    return `v${version}`; // Task releases are v-prefixed
+    core.debug("valid semver provided, checking if release has assets");
+    if (allVersions.includes(version)) {
+      return `v${version}`; // Task releases are v-prefixed
+    }
+    throw new Error(
+      `version ${version} is not available (release may not exist or assets not yet uploaded)`,
+    );
   }
 
   let versionPrefix = version;
@@ -111,7 +122,6 @@ async function computeVersion(
     versionPrefix = versionPrefix.slice(0, versionPrefix.length - 2);
   }
 
-  const allVersions = await fetchVersions(repoToken);
   const possibleVersions = allVersions.filter((v) =>
     v.startsWith(versionPrefix),
   );

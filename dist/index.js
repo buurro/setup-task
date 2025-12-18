@@ -71,7 +71,8 @@ const tc = __importStar(__nccwpck_require__(3472));
 const io = __nccwpck_require__(4994);
 const osPlat = os.platform();
 const osArch = os.arch();
-// Retrieve a list of versions scraping tags from the Github API
+// Retrieve a list of versions from the Github Releases API.
+// Only returns versions that have release assets available for download.
 function fetchVersions(repoToken) {
     return __awaiter(this, void 0, void 0, function* () {
         let rest;
@@ -83,10 +84,11 @@ function fetchVersions(repoToken) {
         else {
             rest = new restm.RestClient("setup-task");
         }
-        const tags = (yield rest.get("https://api.github.com/repos/go-task/task/git/refs/tags")).result || [];
-        return tags
-            .filter((tag) => tag.ref.match(/v\d+\.[\w\.]+/g))
-            .map((tag) => tag.ref.replace("refs/tags/v", ""));
+        const releases = (yield rest.get("https://api.github.com/repos/go-task/task/releases?per_page=100")).result || [];
+        return releases
+            .filter((release) => release.assets.length > 0) // Only releases with uploaded assets
+            .filter((release) => release.tag_name.match(/^v\d+\.[\w\.]+/))
+            .map((release) => release.tag_name.replace(/^v/, ""));
     });
 }
 // Make partial versions semver compliant.
@@ -126,10 +128,15 @@ function normalizeVersion(version) {
 // Compute an actual version starting from the `version` configuration param.
 function computeVersion(version, repoToken) {
     return __awaiter(this, void 0, void 0, function* () {
-        // return if passed version is a valid semver
+        // Fetch all available versions (only those with assets)
+        const allVersions = yield fetchVersions(repoToken);
+        // If a valid semver is provided, check if it exists in available versions
         if (semver.valid(version)) {
-            core.debug("valid semver provided, skipping computing actual version");
-            return `v${version}`; // Task releases are v-prefixed
+            core.debug("valid semver provided, checking if release has assets");
+            if (allVersions.includes(version)) {
+                return `v${version}`; // Task releases are v-prefixed
+            }
+            throw new Error(`version ${version} is not available (release may not exist or assets not yet uploaded)`);
         }
         let versionPrefix = version;
         // strip leading `v` char (will be re-added later)
@@ -140,7 +147,6 @@ function computeVersion(version, repoToken) {
         if (versionPrefix.endsWith(".x")) {
             versionPrefix = versionPrefix.slice(0, versionPrefix.length - 2);
         }
-        const allVersions = yield fetchVersions(repoToken);
         const possibleVersions = allVersions.filter((v) => v.startsWith(versionPrefix));
         const versionMap = new Map();
         possibleVersions.forEach((v) => versionMap.set(normalizeVersion(v), v));

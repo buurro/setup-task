@@ -1,0 +1,204 @@
+[
+  {
+    "tag_name": "v3.37.2",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_darwin_arm64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" },
+      { "name": "task_windows_amd64.zip" }
+    ]
+  },
+  {
+    "tag_name": "v3.37.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_darwin_arm64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" },
+      { "name": "task_windows_amd64.zip" }
+    ]
+  },
+  {
+    "tag_name": "v3.36.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_darwin_arm64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" },
+      { "name": "task_windows_amd64.zip" }
+    ]
+  },
+  {
+    "tag_name": "v3.0.0-preview1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.6.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.5.2",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.5.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.5.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.4.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.3.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.2.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.2.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.1.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.1.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.0.3",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.0.2",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.0.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v2.0.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.4.4",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.4.3",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.4.2",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.4.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.4.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.3.1",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.3.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.2.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.1.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  },
+  {
+    "tag_name": "v1.0.0",
+    "assets": [
+      { "name": "task_darwin_amd64.tar.gz" },
+      { "name": "task_linux_amd64.tar.gz" }
+    ]
+  }
+]
